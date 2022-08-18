@@ -1,0 +1,73 @@
+<div class="container-fluid">
+    <div class="container">
+        <div class="row">
+            <h2 style="font-family: 'Anton', sans-serif" class="text-center">
+                Người dùng trong hệ thống
+            </h2>
+        </div>
+        <button mat-raised-button color="primary" style="margin-bottom: 5px;" (click)="add('add')">Thêm mới</button>
+        <table *ngIf="users" class="table table-striped ">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col" class="center-text">STT</th>
+                <th scope="col" class="center-text">Số điện thoại</th>
+                <th scope="col" class="center-text">Họ và tên</th>
+                <th scope="col" class="center-text">Địa chỉ</th>
+                <th scope="col" class="center-text">Ngày tạo</th>
+                <th scope="col" class="center-text">Vai trò</th>
+                <th scope="col" class="center-text">Thao tác</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let u of users |  paginate: {
+                                                    id: 'users-pagination',
+                                                    itemsPerPage: pageSize,
+                                                    currentPage: page,
+                                                    totalItems: totalUsers
+                                                } ; let i = index;">
+                <td scope="row" class="center-text">{{i + 1}}</td>
+                <td>
+                    <p class="lead center-text">{{u.username}}</p>
+                </td>
+                <td>
+                    <p class="lead center-text">{{u.fullname}}</p>
+                </td>
+                <td>
+                    <p class="lead center-text">{{u.address}}</p>
+                </td>
+                <td>
+                    <p class="lead center-text">{{u.createDate | date: 'dd/MM/yyyy'}}</p>
+                </td>
+                <td>
+                    <div *ngFor= "let role of u.rolesName">
+                        <p class="lead center-text">{{role}} </p>
+                    </div>
+                </td>
+                <td>
+                    <div style="display: flex; flex-direction: column; align-items: inherit; justify-content: center">
+                        <button class="btn btn-info"
+                                style="margin-bottom: 5px;"
+                                (click)="edit(u, 'edit')"
+                        >
+                            Cập nhật
+                        </button>
+                        <button mat-raised-button color="warn" (click) = "delete(u, 'delete')">
+                            Xóa
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+<!-- Phân trang -->
+<pagination-controls *ngIf="paginationIsDisplay"
+ class="user-pagination"
+ id="users-pagination"
+ previousLabel="Prev"
+ nextLabel="Next"
+ (pageChange)="handlePageChange($event)">
+</pagination-controls>

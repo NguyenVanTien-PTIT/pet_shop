@@ -1,0 +1,32 @@
+.wrapper {
+  position: fixed;
+  bottom: -4px;
+  left: 0;
+  height: 100px;
+  width: 100px;
+  z-index: 9999;
+}
+
+.fab-item {
+  right: 0;
+  background: #ff2d2d;
+  border-radius: 100%;
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  color: #797979;
+  text-align: center;
+  cursor: pointer;
+  line-height: 50px;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+}
+
+.fab-item:hover {
+  -webkit-transform: scale(1.4);
+  -webkit-transition: all 0.3s;
+  box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.26);
+}
+
+mat-icon {
+  color: #f3f3f3;
+}

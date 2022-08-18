@@ -1,0 +1,122 @@
+<app-slider></app-slider>
+
+<div style="padding: 0 20px;">
+    <div class="banner">
+        <h2>Dịch vụ cho mọi thú cưng của bạn</h2>
+        <span>Pet Mart là chuỗi pet shop thú cưng Đồ dùng cho chó  – Đồ dùng cho mèo  tại Hà Nội, TP.HCM, Đà Nẵng và Hải Phòng với hệ thống nhiều chi nhánh cửa hàng thú cưng chuyên cung cấp đồ dùng, quần áo, thức ăn, sữa tắm, chuồng, vòng cổ xích và các phụ kiện cho Chó cảnh, Mèo cảnh, Cá cảnh.</span>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-lg-4 col-md-6">
+            <div class="single_service">
+                <div class="service_thumb service_icon_bg_1 d-flex align-items-center justify-content-center">
+                    <div class="service_icon">
+                        <img src="https://technext.github.io/anipat/img/service/service_icon_1.png"/>
+                    </div>
+                </div>
+                <div class="service_content text-center">
+                    <h3>Giới thiệu</h3>
+                    <p class="desp">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6">
+            <div class="single_service">
+                <div class="service_thumb service_icon_bg_1 d-flex align-items-center justify-content-center">
+                    <div class="service_icon">
+                        <img src="https://technext.github.io/anipat/img/service/service_icon_2.png"/>
+                    </div>
+                </div>
+                <div class="service_content text-center">
+                    <h3>Cửa hàng</h3>
+                    <p class="desp">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6">
+            <div class="single_service">
+                <div class="service_thumb service_icon_bg_1 d-flex align-items-center justify-content-center">
+                    <div class="service_icon">
+                        <img src="https://technext.github.io/anipat/img/service/service_icon_3.png"/>
+                    </div>
+                </div>
+                <div class="service_content text-center">
+                    <h3>Dịch vụ Spa</h3>
+                    <p class="desp">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="products-container">
+    <div class="title">
+        Sản phẩm mới nhất
+        <button mat-button mat-raised-button color="primary" class="viewAllBtn"
+        (click) = "viewAll()">
+            Xem tất cả ->
+        </button>
+    </div>
+    <div class="body">
+        <mat-card class="example-card" *ngFor="let item of listNewProduct">
+            <owl-carousel [options]="carouselOptions"
+                          [carouselClasses]="['owl-theme', 'row', 'sliding']"
+                          (click)="singleProduct(item.id)">
+                <div class="item" >
+                    <div class="thumbnail-image">
+                        <img mat-card-image [src] = getPathImage(item.image) class="productImg"/>
+                    </div>
+                </div>
+            </owl-carousel>
+            <mat-card-content (click)="singleProduct(item.id)">
+                <h3>{{item.price | currency: "VND"}}</h3>
+                <span>{{item.name }}</span>
+            </mat-card-content>
+            <mat-card-actions>
+                <button mat-button mat-stroked-button color="primary" class="button" 
+                (click)="addToCart(item.id)">
+                    MUA
+                </button>
+                <button mat-button (click)="singleProduct(item.id)">
+                    CHI TIẾT
+                </button>
+            </mat-card-actions>
+        </mat-card>
+    </div>
+</div>
+
+<div class="products-container" hidden>
+    <div class="title">
+        Sản phẩm bán chạy
+        <button mat-button mat-raised-button color="primary" class="viewAllBtn" (click) = "viewAll()">
+            View All
+        </button>
+    </div>
+    <div class="body">
+        <mat-card class="example-card best-seller" *ngFor="let item of listBestSeller">
+            <owl-carousel [options]="carouselOptions"
+            [carouselClasses]="['owl-theme', 'row', 'sliding']"
+            (click)="singleProduct(item.id)">
+                <div class="item" >
+                    <div class="thumbnail-image">
+                        <img mat-card-image [src]= getPathImage(item.image) class="productImg"/>
+                    </div>
+                </div>
+            </owl-carousel>
+            <mat-card-content (click)="singleProduct(item.id)">
+                <h3>{{item.price | currency: "VND"}}</h3>
+                <span>{{item.name }}</span>
+            </mat-card-content>
+            <mat-card-actions>
+                <button mat-button mat-stroked-button color="primary" class="button" 
+                (click)="addToCart(item.id)">
+                    ADD TO CART
+                </button>
+                <button mat-button>SHARE
+                </button>
+            </mat-card-actions>
+        </mat-card>
+    </div>
+</div>
+<app-contact></app-contact>

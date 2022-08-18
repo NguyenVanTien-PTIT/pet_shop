@@ -1,0 +1,123 @@
+<div class="container">
+    <h4 class="title-manage-order text-center">Quản lý đơn hàng</h4>
+    <div class="row">
+        <div (click)="getOrderByStatus(0)">
+            <button *ngIf="statusCurrent === 0" mat-raised-button class="btn-info">
+                Đang đặt hàng
+            </button>
+            <button *ngIf="statusCurrent !== 0" mat-raised-button color="primary">
+                Đang đặt hàng
+            </button>
+        </div>
+        <div (click)="getOrderByStatus(1)">
+            <button *ngIf="statusCurrent === 1" mat-raised-button class="btn-info">
+                Chờ xác nhận
+            </button>
+            <button *ngIf="statusCurrent !== 1" mat-raised-button color="primary">
+                Chờ xác nhận
+            </button>
+        </div>
+        <div (click)="getOrderByStatus(2)">
+            <button *ngIf="statusCurrent === 2" mat-raised-button class="btn-info">
+                Đã xác nhận
+            </button>
+            <button *ngIf="statusCurrent !== 2" mat-raised-button color="primary">
+                Đã xác nhận
+            </button>
+        </div>
+        <div (click)="getOrderByStatus(3)">
+            <button *ngIf="statusCurrent === 3" mat-raised-button class="btn-info">
+                Đã giao hàng
+            </button>
+            <button *ngIf="statusCurrent !== 3" mat-raised-button color="primary">
+                Đã giao hàng
+            </button>
+        </div>
+    </div>
+    <div class="row">
+        <table *ngIf="orders" class="table table-striped ">
+            <thead class="thead-dark">
+                <tr>
+                <th scope="col">STT</th>
+                <th scope="col">ID</th>
+                <th scope="col">UserID</th>
+                <th scope="col">Tên người nhận</th>
+                <th scope="col">SĐT</th>
+                <th scope="col">Địa chỉ</th>
+                <th scope="col">Ngày đặt</th>
+                <th scope="col">Tổng tiền</th>
+                <th scope="col">Trạng thái</th>
+                <th scope="col" *ngIf="statusCurrent !== 0">Thao tác</th>
+                <th scope="col" *ngIf="statusCurrent !== 0 && statusCurrent !== 3" >Duyệt</th>
+                <th scope="col">Xem chi tiết</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let u of orders |  paginate: { 
+                                                          id: 'orders-pagination',
+                                                          itemsPerPage: pageSize,
+                                                          currentPage: page,
+                                                          totalItems: totalOrders
+                                                      } ; let i = index;">
+                    <td scope="row">{{i + 1}}</td>
+                    <td>
+                        <p class="lead">{{u.id}}</p>
+                    </td>
+                    <td>
+                        <p class="lead">{{u.idUser}}</p>
+                    </td>
+                    <td>
+                        <p class="lead">{{u.nameUser}}</p>
+                    </td>
+                    <td>
+                        <p class="lead">{{u.phoneNumber}}</p>
+                    </td>
+                    <td>
+                        <p class="lead">{{u.address}}</p>
+                    </td>
+                    <td>
+                        <p class="lead">{{u.orderDate}}</p>
+                    </td>
+                    <td>
+                        <p class="lead">{{u.totalprice}}</p>
+                    </td>
+                    <td [ngStyle]="{'background-color':
+                        u.status === 3 ? 'rgb(48, 202, 94)' : 
+                           ( u.status === 1 ? 'rgb(255, 111, 85)' : 
+                           (u.status === 0 ? 'rgb(2, 216, 253)' : 'rgb(253, 195, 4)'))}">
+                        <p class="lead">{{status[u.status]}}</p>
+                    </td>
+                    <td *ngIf="statusCurrent !== 0" class="action-order">
+                        <button class="btn btn-info" (click)="edit(u, 'edit')">
+                            Sửa
+                        </button>
+                        <button class="btn btn-danger" (click)="delete(u, 'delete')">
+                            Xóa
+                        </button>
+                    </td>
+                    <td *ngIf="statusCurrent !== 0 && statusCurrent !== 3">
+                        <button class="btn btn-success" (click)="changeStatus(u.id)">
+                            Duyệt
+                        </button>
+                    </td>
+                    <td>
+                        <button mat-raised-button color="warn" (click)="openOrderDetail(u)">
+                            <mat-icon>reorder</mat-icon>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <!-- Phân trang -->
+    </div>
+    <pagination-controls
+        class="orders-pagination"
+        id="orders-pagination"
+        previousLabel="Prev"
+        nextLabel="Next"
+        directionLinks:boolean="true"
+        autoHide:boolean="true"
+        responsive:boolean="true"
+        (pageChange)="handlePageChange($event)">
+    </pagination-controls>
+</div>

@@ -1,0 +1,77 @@
+<h2 *ngIf="action === 'edit'" class="title-action">Cập nhật người dùng trong hệ thống</h2>
+<h2 *ngIf="action === 'add'" class="title-action">Thêm mới người dùng trong hệ thống</h2>
+<form [formGroup]="profileForm" class="form-actions">
+    <div class="row">
+        <div class="col-6">
+            <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Username/SĐT</mat-label>
+                <input matInput numbersOnly formControlName="username" placeholder="Nhập số điện thoại" required>
+            </mat-form-field>
+        </div>
+        
+        <div class="col-6">
+            <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Mật khẩu</mat-label>
+                <input type="password" matInput formControlName="password" placeholder="Nhập mật khẩu"
+                       [readonly]="action === 'edit'"
+                >
+            </mat-form-field>
+        </div>
+    
+        <div class="col-6">
+            <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Họ và tên</mat-label>
+                <input matInput formControlName="fullname" placeholder="Nhập họ tên" required>
+            </mat-form-field>
+        </div>
+    
+        <div class="col-6">
+            <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Địa chỉ</mat-label>
+                <input matInput formControlName="address" placeholder="Nhập địa chỉ" required>
+            </mat-form-field>
+        </div>
+    
+        <div class="col-6">
+            <mat-form-field class="w-100" appearance="outline" *ngIf="action === 'edit'">
+                <mat-label>Ngày tạo</mat-label>
+                <input matInput value="{{user.createDate | date: 'dd/MM/yyyy'}}" disabled>
+            </mat-form-field>
+        </div>
+    </div>
+
+    <div class="role-selecte row w-100">
+        <mat-selection-list #listRole (click)="onCheckboxClick($event, listRole)">
+            <mat-list-option *ngFor="let role of roles" [value]="role.name" [selected]="role.checkbox">
+              {{role.nameDisplay}}
+            </mat-list-option>
+        </mat-selection-list>
+        <p class="col-6">
+            Số lựa chọn: {{listRole.selectedOptions.selected.length}}
+        </p>
+    </div>
+      
+    <div class="btn-group row">
+        <button mat-button mat-raised-button color="primary" 
+            class="save"
+            (click)="update()"
+            *ngIf= "action === 'edit'"
+            [disabled]="!profileForm.valid">
+            Lưu lại
+        </button>
+    
+        <button mat-button mat-raised-button color="primary"
+            class="save"
+            (click)="update()"
+            *ngIf= "action === 'add'"
+            [disabled]="!profileForm.valid">
+            Thêm mới
+        </button>
+    
+        <button mat-button mat-stroked-button class="button btn-info"
+        (click)="closeDialog()">
+            Hủy bỏ
+        </button>
+    </div>
+</form>
+

@@ -1,0 +1,49 @@
+<h3>Thông tin cá nhân</h3>
+<form [formGroup]="profileForm">
+    <div class="form-box">
+        <mat-form-field appearance="outline">
+            <mat-label>Tên đầy đủ</mat-label>
+            <input matInput formControlName="fullname" placeholder="Placeholder" required>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="lastName">
+            <mat-label>Ngày lập</mat-label>
+            <input matInput value="{{user.createDate| date: 'dd/MM/yyyy'}}" placeholder="Placeholder" disabled>
+        </mat-form-field>
+    </div>
+
+    <div class="form-box">
+        <mat-form-field appearance="outline">
+            <mat-label>Số điện thoại</mat-label>
+            <input matInput value="{{user.username}}" disabled>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Địa chỉ</mat-label>
+            <input matInput formControlName="address" placeholder="Placeholder" >
+        </mat-form-field>
+    </div>
+    <!-- <p>Your Gender:</p>
+    <div class="form-box">
+
+        <mat-radio-group formControlName="gender" aria-label="Select an option" color="primary">
+            <mat-radio-button selected value="1">Male</mat-radio-button> &nbsp; &nbsp;
+            <mat-radio-button value="2">Female</mat-radio-button>
+        </mat-radio-group>
+    </div> -->
+    <div class="form-box" style="margin-top:20px;">
+        <button mat-button mat-raised-button color="primary"
+                class="buy-now-button"
+                [disabled]="profileForm.invalid"
+                (click)="saveUser(user)"
+        >
+            LƯU
+        </button>
+    </div>
+</form>
+<div style="margin-top: 20px; border-top: 1px solid rgba(0, 0, 0, 0.05);">
+    <h3>Câu hỏi thường gặp</h3>
+    <p><b>Điều gì xảy ra khi tôi cập nhật địa chỉ email (hoặc số điện thoại di động) của mình?</b></p>
+    <p>Tương tự như vậy, id email đăng nhập của bạn (hoặc số điện thoại di động) cũng thay đổi. Bạn sẽ nhận được tất cả các thông báo liên quan đến tài khoản của mình trên địa chỉ email (hoặc số điện thoại di động) đã cập nhật của bạn.
+    </p>
+    <p><b>Khi nào thì tài khoản Flipkart của tôi sẽ được cập nhật với địa chỉ email mới (hoặc số điện thoại di động)?</b></p>
+    <p>Điều này xảy ra ngay sau khi bạn xác nhận mã xác minh được gửi đến email (hoặc điện thoại di động) của bạn và lưu các thay đổi.</p>
+</div>

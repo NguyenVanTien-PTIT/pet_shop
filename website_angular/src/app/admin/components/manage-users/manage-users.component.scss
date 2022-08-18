@@ -1,0 +1,10 @@
+pagination-controls {
+    ::ng-deep {
+      ul {
+        margin-top: 20px;
+        margin-left: 50%;
+        transform: translateX(-28%);
+      }
+    }
+}
+

@@ -1,0 +1,65 @@
+<!-- Đăng nhập -->
+<form [formGroup]="loginForm" *ngIf="!checkSignUp"> 
+  <div class="example-container">
+    <h2 style="font-weight: 100; text-align: center;">Đăng nhập ngay</h2>
+  
+    <mat-form-field appearance="outline">
+      <mat-label>Tên đăng nhập/SĐT</mat-label>
+      <input matInput formControlName="username" type="text" numbersOnly placeholder="Nhập tên đăng nhập/Số điện thoại" required>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Mật khẩu</mat-label>
+      <input matInput formControlName="password" type="password" required>
+    </mat-form-field>
+    <button mat-button mat-raised-button color="primary" 
+      class="buy-now-button space"
+      [disabled]="!loginForm.valid"
+      (click)="login()">
+      Đăng nhập
+    </button>
+
+  
+    <label style="text-align: center; margin-top: 5px; color:gray">Hoặc</label>
+    <button mat-button mat-stroked-button color="primary" class="button"
+    (click)="goToSignUp()">
+      Đăng ký ngay
+    </button>
+  </div>
+</form>
+
+<!-- Đăng ký -->
+<form [formGroup]="signUpForm" *ngIf="checkSignUp"> 
+  <div class="example-container">
+    <h2 style="font-weight: 100; text-align: center;">Đăng ký</h2>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Số điện thoại</mat-label>
+      <input matInput formControlName="phoneNumber" type="text" numbersOnly placeholder="Nhập số điện thoại" required>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Mật khẩu</mat-label>
+      <input matInput formControlName="password" type="password" required>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Họ tên</mat-label>
+      <input matInput formControlName="fullname" placeholder="Nhập họ tên" required>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Địa chỉ</mat-label>
+      <input matInput formControlName="address" placeholder="Nhập địa chỉ" required>
+    </mat-form-field>
+
+    <button mat-button mat-raised-button color="primary" 
+      class="buy-now-button space"
+      [disabled]="!signUpForm.valid"
+      (click)="signUp()">
+      ĐĂNG KÝ
+    </button>
+  
+    <label style="text-align: center; margin-top: 5px; color:gray">Hoặc</label>
+    <button mat-button mat-stroked-button color="primary" class="button"
+    (click)="goToLogin()">
+      Quay lại đăng nhập
+    </button>
+  </div>
+</form>
