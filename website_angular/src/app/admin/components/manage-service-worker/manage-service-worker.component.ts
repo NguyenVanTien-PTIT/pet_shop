@@ -6,6 +6,7 @@ import {Router} from '@angular/router';
 import {ActionProductPopupComponent} from '../manage-products/action-popup/action-popup.component';
 import {DeleteProductPopupComponent} from '../manage-products/delete-popup/delete-popup.component';
 import {ManageServiceWorkerService, ServiceWorker} from '../../services/manage-service-worker.service';
+import {ActionPopupWorkerComponent} from './action-popup/action-popup.component';
 
 @Component({
     selector: 'app-manage-service-worker',
@@ -63,10 +64,22 @@ export class ManageServiceWorkerComponent implements OnInit {
 
     // Them sản phẩm
     add() {
+        this.dialog.open(ActionPopupWorkerComponent, {
+            data: {action: 'add'},
+            maxHeight: 500
+        })
+            .afterClosed()
+            .subscribe(() => this.getAll());
     }
 
     // Sửa sản phẩm
-    edit(u: any, action: string) {
+    edit(worker: ServiceWorker, action: string) {
+        this.dialog.open(ActionPopupWorkerComponent, {
+            data: {action: 'edit', ...worker},
+            maxHeight: 500
+        })
+            .afterClosed()
+            .subscribe(() => this.getAll());
     }
 
     delete(worker: any, action: string) {

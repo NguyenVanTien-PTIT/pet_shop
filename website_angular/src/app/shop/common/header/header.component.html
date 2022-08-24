@@ -27,7 +27,7 @@
             <ul class="list">
                 <li class="contain" [routerLink]="['/home']" routerLinkActive="active" *ngIf="!isAdmin"><span>TRANG CHỦ</span></li>
                 <li class="contain" [routerLink]="['/products']" routerLinkActive="active" *ngIf="!isAdmin"><span>SHOP CHÓ/MÈO</span></li>
-                <li class="contain" *ngIf="!isAdmin"><span>DỊCH VỤ</span></li>
+                <li class="contain" [routerLink]="['/services']" routerLinkActive="active" *ngIf="!isAdmin"><span>DỊCH VỤ</span></li>
                 <li class="contain" *ngIf="!isAdmin"><span>NHẬN KÝ GỬI</span></li>
                 <li class="contain" *ngIf="!isAdmin"><span>LIÊN HỆ</span>
                 </li>
@@ -44,6 +44,10 @@
                     </li>
                     <li class="contain" [routerLink]="['/admin/product']" routerLinkActive="active">
                         <span>SẢN PHẨM</span>
+                    </li>
+
+                    <li class="contain" [routerLink]="['/admin/service']" routerLinkActive="active">
+                        <span>DỊCH VỤ</span>
                     </li>
 
                     <li class="contain" [routerLink]="['/admin/service-worker']" routerLinkActive="active">

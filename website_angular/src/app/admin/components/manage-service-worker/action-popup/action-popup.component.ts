@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {ManageProductService} from '../../../services/manage-product.service';
 import {ToastrService} from 'ngx-toastr';
+import {ManageServiceWorkerService, ServiceWorker} from '../../../services/manage-service-worker.service';
 
 @Component({
     selector: 'app-action-popup-worker',
@@ -11,23 +12,20 @@ import {ToastrService} from 'ngx-toastr';
 })
 export class ActionPopupWorkerComponent implements OnInit {
 
-    action: string;
-    product: any;
-    categories: any;
-    public productForm: FormGroup;
-    description: any;
+    action: 'add' | 'edit' = 'add';
+    worker: ServiceWorker;
+    createForm: FormGroup;
     image: File = null;
 
     constructor(
         public dialogRef: MatDialogRef<ActionPopupWorkerComponent>,
         @Optional() @Inject(MAT_DIALOG_DATA) public data: any,
         private fb: FormBuilder,
-        private manageProductService: ManageProductService,
+        private manageServiceWorkerService: ManageServiceWorkerService,
         private toast: ToastrService,
     ) {
         this.action = data.action;
-        this.product = data;
-        this.categories = data.categories;
+        this.worker = data;
     }
 
     ngOnInit() {
@@ -36,35 +34,47 @@ export class ActionPopupWorkerComponent implements OnInit {
 
     // Đổ dữ liệu vào form sửa
     loadData(): void {
-        this.productForm = this.fb.group({
-            categoryId: ['', Validators.required],
-            name: ['', Validators.required],
-            price: ['', Validators.required],
-            description: ['', Validators.required],
-            image: ['', Validators.required],
-            createDate: ['']
+        this.createForm = this.fb.group({
+            fullname: ['', Validators.required],
+            phoneNumber: ['', [Validators.required, Validators.maxLength(10), Validators.minLength(10)]],
+            address: [''],
+            description: [''],
         });
 
         // Set form control
         if (this.action === 'edit') {
-            for (const controlName in this.productForm.controls) {
-                this.productForm.controls[controlName].setValue(this.product[controlName]);
-            }
+            this.createForm.patchValue({
+                fullname: this.worker.fullname,
+                phoneNumber: this.worker.phoneNumber,
+                address: this.worker.address,
+                description: this.worker.description
+            });
         }
-        this.description = this.product.description;
     }
 
-    changeCategory(event) {
-        this.productForm.controls.categoryId.setValue(event.value);
-    }
-
-    update() {
+    save(action: 'add' | 'edit') {
         // Lấy giá trị từ các FormControl
-        for (const controlName in this.productForm.controls) {
-            this.product[controlName] = this.productForm.controls[controlName].value;
+        for (const controlName in this.createForm.controls) {
+            this.worker[controlName] = this.createForm.controls[controlName].value;
         }
-        console.log('product sau khi sua/ them: ', this.product);
-        this.dialogRef.close({event: this.action, data: this.product});
+
+        const formData = new FormData();
+        formData.append(
+            'worker',
+            new Blob([JSON.stringify(this.worker)], {type: 'application/json'})
+        );
+        if (this.image) {
+            formData.append('image', this.image);
+        }
+
+        console.log('worker sau khi sua/ them: ', this.worker);
+
+        this.manageServiceWorkerService.save(formData).subscribe(
+            (res) => {
+                this.toast.success('Thành công');
+                this.dialogRef.close({event: 'cancel'});
+            }
+        );
     }
 
     closeDialog() {
@@ -73,25 +83,5 @@ export class ActionPopupWorkerComponent implements OnInit {
 
     onChangeFile(event) {
         this.image = event.target.files[0] as File;
-    }
-
-    uploadImage() {
-        this.manageProductService.uploadImage(this.image).subscribe(data => {
-            if (!data) {
-                this.toast.error('Lỗi upload ảnh');
-                this.image = null;
-            } else if (data.httpStatus === 'BAD_REQUEST') {
-                this.image = null;
-                this.toast.error(data.msg);
-            } else if (data.httpStatus === 'OK') {
-                this.productForm.controls.image.setValue(data.data);
-                this.toast.success(data.msg);
-            }
-            console.log(data);
-        });
-    }
-
-    showRemind() {
-        this.toast.error('Vui lòng chọn hình ảnh trước!');
     }
 }

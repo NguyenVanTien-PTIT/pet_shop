@@ -1,0 +1,30 @@
+<div class="product-wrapper">
+    <div class="product-wrapper__img">
+        <img src="../../../assets/images/slide-service.png" alt="anh slide"/>
+    </div>
+    <div class="products-container">
+        <div class="body">
+            <mat-card class="example-card"
+                      *ngFor="let item of services"
+            >
+                <owl-carousel [options]="carouselOptions"
+                              [carouselClasses]="['owl-theme', 'row', 'sliding']">
+                    <div class="item" (click)="booking(item.id)">
+                        <div class="thumbnail-image">
+                            <img [src]="item.image"
+                                 class="productImg"
+                                 mat-card-image
+                                 alt="anh"
+                            />
+                        </div>
+                    </div>
+                </owl-carousel>
+                <mat-card-content>
+                    <p style="font-size: 20px; font-weight: 700;">{{item.name}}</p>
+                    <p>{{item.price | currency: "VND"}}</p>
+                </mat-card-content>
+            </mat-card>
+
+        </div>
+    </div>
+</div>

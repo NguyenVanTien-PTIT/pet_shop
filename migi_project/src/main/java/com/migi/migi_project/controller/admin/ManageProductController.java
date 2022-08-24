@@ -76,12 +76,12 @@ public class ManageProductController {
         return ResponseEntity.ok(productService.addCategory(categoryDTO));
     }
 
-    @PutMapping(value = "admin/category")
+    @PutMapping(value = "/admin/category")
     public ResponseEntity<?> updateCategory(@RequestBody CategoryDTO categoryDTO){
         return ResponseEntity.ok(productService.updateCategory(categoryDTO));
     }
 
-    @DeleteMapping(value = "admin/category/{id}")
+    @DeleteMapping(value = "/admin/category/{id}")
     public ResponseEntity<?> deleteCategory(@PathVariable(value = "id") Integer id){
         return ResponseEntity.ok(productService.deleteCategory(id));
     }

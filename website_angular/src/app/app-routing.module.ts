@@ -18,6 +18,9 @@ import { NotificationsComponent } from './shop/myprofile/notifications/notificat
 import {AuthService } from './shop/services/auth-service';
 import { ManageProductsComponent } from './admin/components/manage-products/manage-products.component';
 import {ManageServiceWorkerComponent} from './admin/components/manage-service-worker/manage-service-worker.component';
+import {ManageServiceComponent} from './admin/components/manage-service/manage-service.component';
+import {ServicePageComponent} from './shop/service-page/service-page.component';
+import {SingleServiceComponent} from './shop/single-service/single-service.component';
 
 const routes: Routes = [
   {
@@ -31,6 +34,15 @@ const routes: Routes = [
   {
     path: 'product/:id',
     component: SingleProductComponent
+  },
+
+  {
+    path: 'services',
+    component: ServicePageComponent
+  },
+  {
+    path: 'service/:id',
+    component: SingleServiceComponent
   },
   {
     path: 'shopping-cart/:id',
@@ -96,6 +108,10 @@ const routes: Routes = [
   {
     path: 'admin/product',
     component: ManageProductsComponent
+  },
+  {
+    path: 'admin/service',
+    component: ManageServiceComponent
   },
   {
     path: 'admin/service-worker',

@@ -1,0 +1,43 @@
+<h2 *ngIf="action === 'edit'" class="title-action">Sửa dịch vụ</h2>
+<h2 *ngIf="action === 'add'" class="title-action">Thêm dịch vụ</h2>
+<form [formGroup]="createForm" class="form-actions">
+    <div class="row">
+
+        <div class="col-4">
+            <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Tên dịch vụ</mat-label>
+                <input matInput formControlName="name">
+            </mat-form-field>
+        </div>
+
+        <div class="col-4">
+            <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Giá</mat-label>
+                <input type="number" matInput formControlName="price">
+            </mat-form-field>
+        </div>
+
+        <div class="col-12">
+            <mat-label>Mô tả</mat-label>
+            <ck-editor formControlName="description"></ck-editor>
+        </div>
+
+    </div>
+
+    <div class="btn-group row">
+        <button mat-button mat-raised-button color="primary"
+                class="save"
+                (click)="save(action)"
+                [disabled]="createForm.invalid">
+            Lưu lại
+        </button>
+
+        <button mat-raised-button class="button btn-info"
+                (click)="closeDialog()">
+            Hủy bỏ
+        </button>
+        <br><br><br>
+    </div>
+</form>
+
+

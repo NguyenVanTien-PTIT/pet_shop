@@ -81,6 +81,10 @@ import {NumberDirective} from './shop/common/directive/number-only.directive';
 import { ContactComponent } from './shop/common/contact/contact.component';
 import { ManageServiceWorkerComponent } from './admin/components/manage-service-worker/manage-service-worker.component';
 import {ActionPopupWorkerComponent} from './admin/components/manage-service-worker/action-popup/action-popup.component';
+import { ManageServiceComponent } from './admin/components/manage-service/manage-service.component';
+import {ActionPopupServiceComponent} from './admin/components/manage-service/action-popup/action-popup.component';
+import { ServicePageComponent } from './shop/service-page/service-page.component';
+import { SingleServiceComponent } from './shop/single-service/single-service.component';
 
 @NgModule({
     declarations: [
@@ -118,7 +122,11 @@ import {ActionPopupWorkerComponent} from './admin/components/manage-service-work
         NumberDirective,
         ContactComponent,
         ManageServiceWorkerComponent,
-        ActionPopupWorkerComponent
+        ActionPopupWorkerComponent,
+        ManageServiceComponent,
+        ActionPopupServiceComponent,
+        ServicePageComponent,
+        SingleServiceComponent
     ],
     imports: [
         BrowserModule,
@@ -191,7 +199,8 @@ import {ActionPopupWorkerComponent} from './admin/components/manage-service-work
         OrderDeletePopupComponent,
         OrderActionPopupComponent,
         OrderDetailComponent,
-        ActionPopupWorkerComponent
+        ActionPopupWorkerComponent,
+        ActionPopupServiceComponent
     ]
 
 })

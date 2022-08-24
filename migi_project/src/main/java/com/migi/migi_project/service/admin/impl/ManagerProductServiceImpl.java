@@ -26,6 +26,7 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 @Service
@@ -150,12 +151,17 @@ public class ManagerProductServiceImpl implements ManagerProductService {
     private static String UPLOAD_DIR = FileUtils.getResourceBasePath()+ "\\src\\main\\resources\\images";
 
     @Override
-    public ResponseUploadFile<String> uploadFile(MultipartFile multipartFile) {
+    public ResponseUploadFile uploadFile(MultipartFile multipartFile) {
         //Tạo thư mục chứa ảnh nếu không tồn tại
         File uploadDir = new File(UPLOAD_DIR);
         if (!uploadDir.exists()) {
             uploadDir.mkdirs();
         }
+
+        if (Objects.isNull(multipartFile)) {
+            return new ResponseUploadFile("File không hợp lệ!", HttpStatus.BAD_REQUEST, "");
+        }
+
         //Lấy tên file và đuôi mở rộng của file
         String originalFilename = multipartFile.getOriginalFilename();
         String extension = originalFilename.substring(originalFilename.lastIndexOf(".") + 1);

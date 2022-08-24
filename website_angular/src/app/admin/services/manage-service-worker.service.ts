@@ -26,6 +26,11 @@ export class ManageServiceWorkerService {
         return this.http.get<ServiceWorker[]>(url);
     }
 
+    save(data: FormData): Observable<ServiceWorker[]> {
+        const url = `${this.REST_API_SERVER}/worker`;
+        return this.http.post<ServiceWorker[]>(url, data);
+    }
+
     delete(id: number) {
         const url = `${this.REST_API_SERVER}/worker/${id}`;
         return this.http.delete<any>(url);
