@@ -61,7 +61,8 @@ export class SingleServiceComponent implements OnInit {
     });
   }
 
-  bookNow() {
-
+  // //Chuyển hướng url sang page dat lich
+  bookNow(id) {
+    this.router.navigate(['booking/' + id]);
   }
 }

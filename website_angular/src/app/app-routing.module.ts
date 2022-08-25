@@ -21,6 +21,8 @@ import {ManageServiceWorkerComponent} from './admin/components/manage-service-wo
 import {ManageServiceComponent} from './admin/components/manage-service/manage-service.component';
 import {ServicePageComponent} from './shop/service-page/service-page.component';
 import {SingleServiceComponent} from './shop/single-service/single-service.component';
+import {BookingServiceComponent} from './shop/booking-service/booking-service.component';
+import {ThanksBookingComponent} from './shop/thanks-booking/thanks-booking.component';
 
 const routes: Routes = [
   {
@@ -43,6 +45,14 @@ const routes: Routes = [
   {
     path: 'service/:id',
     component: SingleServiceComponent
+  },
+  {
+    path: 'booking/:id',
+    component: BookingServiceComponent
+  },
+  {
+    path: 'thanks',
+    component: ThanksBookingComponent
   },
   {
     path: 'shopping-cart/:id',

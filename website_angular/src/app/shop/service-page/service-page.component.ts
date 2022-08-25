@@ -53,8 +53,8 @@ export class ServicePageComponent implements OnInit {
       this.services = data.map(item => ({...item, image: this.imgs[Math.floor(Math.random() * 10)]}));
     });
   }
-  // //Chuyển hướng url sang page single-product
-  booking(id) {
+  // //Chuyển hướng url sang page chi tiet
+  openDetails(id) {
     this.router.navigate(['service/' + id]);
   }
 

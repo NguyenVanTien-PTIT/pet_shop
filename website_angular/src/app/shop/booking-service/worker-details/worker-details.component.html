@@ -1,0 +1,27 @@
+<div class="single-product">
+    <div class="conatiner" *ngIf="worker">
+        <div class="product-img-container">
+            <img class="productImg" mat-card-image style="width: 100%; padding: 20px;" [src] ="getPathImage(worker.avatar)"
+                 alt="Photo of a Shiba Inu">
+
+        </div>
+        <div class="product-description">
+            <h2 style="font-weight: 400;"> {{worker.fullname}} </h2>
+            <div class="rating-container">
+            </div>
+            <h2 style="font-weight: 400;">SĐT:  {{worker.phoneNumber}} </h2>
+            <div class="description" [innerHTML]="worker.description"></div>
+
+            <br><br>
+        </div>
+    </div>
+
+    <div class="row" style="    margin: auto;display: flex;justify-content: center;border-top: 1px solid #ccc;    align-items: center;">
+        <button mat-raised-button class="button btn-info"
+                style="height: 40px"
+                (click)="dialogRef.close()">
+            Hủy bỏ
+        </button>
+        <br><br><br>
+    </div>
+</div>

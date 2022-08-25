@@ -85,6 +85,11 @@ import { ManageServiceComponent } from './admin/components/manage-service/manage
 import {ActionPopupServiceComponent} from './admin/components/manage-service/action-popup/action-popup.component';
 import { ServicePageComponent } from './shop/service-page/service-page.component';
 import { SingleServiceComponent } from './shop/single-service/single-service.component';
+import { BookingServiceComponent } from './shop/booking-service/booking-service.component';
+import { ChooseWorkerPopupComponent } from './shop/booking-service/choose-worker-popup/choose-worker-popup.component';
+import { WorkerDetailsComponent } from './shop/booking-service/worker-details/worker-details.component';
+import {DatePipe} from '@angular/common';
+import { ThanksBookingComponent } from './shop/thanks-booking/thanks-booking.component';
 
 @NgModule({
     declarations: [
@@ -126,7 +131,11 @@ import { SingleServiceComponent } from './shop/single-service/single-service.com
         ManageServiceComponent,
         ActionPopupServiceComponent,
         ServicePageComponent,
-        SingleServiceComponent
+        SingleServiceComponent,
+        BookingServiceComponent,
+        ChooseWorkerPopupComponent,
+        WorkerDetailsComponent,
+        ThanksBookingComponent
     ],
     imports: [
         BrowserModule,
@@ -178,6 +187,7 @@ import { SingleServiceComponent } from './shop/single-service/single-service.com
         NgxChartsModule,
     ],
     providers: [
+        DatePipe,
         {
             provide: HTTP_INTERCEPTORS,
             useClass: TokenInterceptorService,
@@ -200,7 +210,9 @@ import { SingleServiceComponent } from './shop/single-service/single-service.com
         OrderActionPopupComponent,
         OrderDetailComponent,
         ActionPopupWorkerComponent,
-        ActionPopupServiceComponent
+        ActionPopupServiceComponent,
+        ChooseWorkerPopupComponent,
+        WorkerDetailsComponent
     ]
 
 })

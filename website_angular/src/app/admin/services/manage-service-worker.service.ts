@@ -17,7 +17,7 @@ export class ServiceWorker {
 })
 
 export class ManageServiceWorkerService {
-    private REST_API_SERVER = 'http://localhost:8080/admin';
+    private REST_API_SERVER = 'http://localhost:8080';
 
     constructor(private http: HttpClient) {}
 
@@ -27,12 +27,12 @@ export class ManageServiceWorkerService {
     }
 
     save(data: FormData): Observable<ServiceWorker[]> {
-        const url = `${this.REST_API_SERVER}/worker`;
+        const url = `${this.REST_API_SERVER}/admin/worker`;
         return this.http.post<ServiceWorker[]>(url, data);
     }
 
     delete(id: number) {
-        const url = `${this.REST_API_SERVER}/worker/${id}`;
+        const url = `${this.REST_API_SERVER}/admin/worker/${id}`;
         return this.http.delete<any>(url);
     }
 }

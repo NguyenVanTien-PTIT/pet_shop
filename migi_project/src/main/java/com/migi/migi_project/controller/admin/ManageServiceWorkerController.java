@@ -16,7 +16,7 @@ public class ManageServiceWorkerController {
     @Autowired
     private ManageServiceWorkerService manageServiceWorkerService;
 
-    @GetMapping(value = "/admin/worker")
+    @GetMapping(value = "/worker")
     public ResponseEntity<List<ServiceWorkerDTO>> getAll(){
         List<ServiceWorkerDTO> list = manageServiceWorkerService.findAll();
         return ResponseEntity.ok(list);

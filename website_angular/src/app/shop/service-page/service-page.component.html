@@ -9,7 +9,7 @@
             >
                 <owl-carousel [options]="carouselOptions"
                               [carouselClasses]="['owl-theme', 'row', 'sliding']">
-                    <div class="item" (click)="booking(item.id)">
+                    <div class="item" (click)="openDetails(item.id)">
                         <div class="thumbnail-image">
                             <img [src]="item.image"
                                  class="productImg"
