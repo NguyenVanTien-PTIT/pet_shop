@@ -1,129 +1,136 @@
-<div class="shopping-cart-conatiner">
+<mat-tab-group mat-align-tabs = "end" dynamicHeight>
+    <mat-tab label="Đặt lịch">
+        <div class="shopping-cart-conatiner">
 
-    <div class="title">
-        Đặt lịch cho thú cưng
-    </div>
-    <div class="header">
+            <div class="title">
+                Đặt lịch cho thú cưng
+            </div>
+            <div class="header">
 
 
-        <div class="img">
-
-        </div>
-        <div class="name">
-            Dịch vụ
-        </div>
-        <div class="price">
-            Chi phí
-        </div>
-    </div>
-
-    <div class="body" *ngIf="service">
-
-        <div class="img">
-            <img class="productImg" [src]="image" alt="Photo of a Shiba Inu">
-        </div>
-        <div class="name" (click)="details(service.id)">
-            <h5>{{service.name}}</h5>
-            <p class="description" [innerHTML]= "service.description"></p>
-        </div>
-        <div class="price">
-            {{service.price | currency: "VND"}}
-        </div>
-        <div class="close">
-            <mat-icon class="close-icon">close</mat-icon>
-        </div>
-
-    </div>
-
-    <div class="bottom-content">
-
-        <div class="order-information">
-            <form [formGroup]="bookingForm">
-                <span class="title-order" style="    display: block; margin-bottom: 30px; width:100%; font-weight: bold; text-align: center;">Thông tin đặt lịch</span>
-                <div class="example-container">
-
-                    <mat-form-field appearance="outline">
-                        <mat-label>Mã dịch vụ</mat-label>
-                        <input matInput formControlName="serviceCode" placeholder="Mã dịch vụ" readonly>
-                    </mat-form-field>
-
-                    <mat-form-field appearance="outline">
-                        <mat-label>Tên dịch vụ</mat-label>
-                        <input matInput formControlName="serviceName" placeholder="Tên dịch vụ" readonly>
-                    </mat-form-field>
-
-                    <mat-form-field appearance="outline">
-                        <mat-label>Tên khách hàng</mat-label>
-                        <input matInput formControlName="fullname" placeholder="Tên khách hàng" required>
-                    </mat-form-field>
-
-                    <mat-form-field appearance="outline">
-                        <mat-label>Ngày hẹn</mat-label>
-                        <input matInput type="datetime-local" formControlName="appointmentDateStr" placeholder="Ngày hẹn" required>
-                    </mat-form-field>
-
-                    <mat-form-field appearance="outline">
-                        <mat-label>Số điện thoại</mat-label>
-                        <input matInput numbersOnly formControlName="phone" placeholder="Số điện thoại" required>
-                    </mat-form-field>
-
-                    <mat-form-field appearance="outline">
-                        <mat-label>Tên thú cưng</mat-label>
-                        <input matInput formControlName="petName" placeholder="Tên thú cưng" required>
-                    </mat-form-field>
-
-                    <mat-form-field appearance="outline">
-                        <mat-label>Thợ làm dịch vụ</mat-label>
-                        <mat-select formControlName="serviceWorkerId" required [disabled]="true">
-                            <mat-option [value]="''">Chọn thợ làm dịch vụ</mat-option>
-                            <mat-option *ngFor="let o of workers" [value]="o.id">
-                                {{o.fullname}}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-
-                    <mat-form-field appearance="outline">
-                        <mat-label>Loại thú cưng</mat-label>
-                        <input matInput formControlName="petType" placeholder="Loại thú cưng" required>
-                    </mat-form-field>
-
-                    <button type="button" mat-button mat-stroked-button style="height: 58px;margin-top: 5px;width: 40%;"
-                            (click)="openWorkerPopup()"
-                    >
-                        <mat-label>Chọn thợ làm dịch vụ</mat-label>
-                    </button>
+                <div class="img">
 
                 </div>
-            </form>
-        </div>
-
-        <div class="cart-total">
-            <h3 style="font-weight: bold; text-align: center;">Hóa đơn</h3>
-            <hr>
-            <table style="width: 100%">
-                <tr>
-                    <td>Chi phí dịch vụ</td>
-                    <td>{{service?.price}}</td>
-                </tr>
-                <tr>
-                    <td colspan="2">
-                        <hr>
-                    </td>
-                </tr>
-                <tr>
-
-                    <td>Tổng chi phí: </td>
-                    <td><b>{{service?.price | currency: "VND"}} </b></td>
-                </tr>
-            </table>
-            <div class="checkout-button">
-                <button mat-stroked-button color="primary" class="button full-button"
-                        (click)= "payment()" >
-                    ĐẶT LỊCH
-                </button>
+                <div class="name">
+                    Dịch vụ
+                </div>
+                <div class="price">
+                    Chi phí
+                </div>
             </div>
+
+            <div class="body" *ngIf="service">
+
+                <div class="img">
+                    <img class="productImg" [src]="image" alt="Photo of a Shiba Inu">
+                </div>
+                <div class="name" (click)="details(service.id)">
+                    <h5>{{service.name}}</h5>
+                    <p class="description" [innerHTML]= "service.description"></p>
+                </div>
+                <div class="price">
+                    {{service.price | currency: "VND"}}
+                </div>
+                <div class="close">
+                    <mat-icon class="close-icon">close</mat-icon>
+                </div>
+
+            </div>
+
+            <div class="bottom-content">
+
+                <div class="order-information">
+                    <form [formGroup]="bookingForm">
+                        <span class="title-order" style="    display: block; margin-bottom: 30px; width:100%; font-weight: bold; text-align: center;">Thông tin đặt lịch</span>
+                        <div class="example-container">
+
+                            <mat-form-field appearance="outline">
+                                <mat-label>Mã dịch vụ</mat-label>
+                                <input matInput formControlName="serviceCode" placeholder="Mã dịch vụ" readonly>
+                            </mat-form-field>
+
+                            <mat-form-field appearance="outline">
+                                <mat-label>Tên dịch vụ</mat-label>
+                                <input matInput formControlName="serviceName" placeholder="Tên dịch vụ" readonly>
+                            </mat-form-field>
+
+                            <mat-form-field appearance="outline">
+                                <mat-label>Tên khách hàng</mat-label>
+                                <input matInput formControlName="fullname" placeholder="Tên khách hàng" required>
+                            </mat-form-field>
+
+                            <mat-form-field appearance="outline">
+                                <mat-label>Ngày hẹn</mat-label>
+                                <input matInput type="datetime-local" formControlName="appointmentDateStr" placeholder="Ngày hẹn" required>
+                            </mat-form-field>
+
+                            <mat-form-field appearance="outline">
+                                <mat-label>Số điện thoại</mat-label>
+                                <input matInput numbersOnly formControlName="phone" placeholder="Số điện thoại" required>
+                            </mat-form-field>
+
+                            <mat-form-field appearance="outline">
+                                <mat-label>Tên thú cưng</mat-label>
+                                <input matInput formControlName="petName" placeholder="Tên thú cưng" required>
+                            </mat-form-field>
+
+                            <mat-form-field appearance="outline">
+                                <mat-label>Thợ làm dịch vụ</mat-label>
+                                <mat-select formControlName="serviceWorkerId" required [disabled]="true">
+                                    <mat-option [value]="''">Chọn thợ làm dịch vụ</mat-option>
+                                    <mat-option *ngFor="let o of workers" [value]="o.id">
+                                        {{o.fullname}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+
+                            <mat-form-field appearance="outline">
+                                <mat-label>Loại thú cưng</mat-label>
+                                <input matInput formControlName="petType" placeholder="Loại thú cưng" required>
+                            </mat-form-field>
+
+                            <button type="button" mat-button mat-stroked-button style="height: 58px;margin-top: 5px;width: 40%;"
+                                    (click)="openWorkerPopup()"
+                            >
+                                <mat-label>Chọn thợ làm dịch vụ</mat-label>
+                            </button>
+
+                        </div>
+                    </form>
+                </div>
+
+                <div class="cart-total">
+                    <h3 style="font-weight: bold; text-align: center;">Hóa đơn</h3>
+                    <hr>
+                    <table style="width: 100%">
+                        <tr>
+                            <td>Chi phí dịch vụ</td>
+                            <td>{{service?.price}}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <hr>
+                            </td>
+                        </tr>
+                        <tr>
+
+                            <td>Tổng chi phí: </td>
+                            <td><b>{{service?.price | currency: "VND"}} </b></td>
+                        </tr>
+                    </table>
+                    <div class="checkout-button">
+                        <button mat-stroked-button color="primary" class="button full-button"
+                                (click)= "payment()" >
+                            ĐẶT LỊCH
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
         </div>
-
-    </div>
-
-</div>
+    </mat-tab>
+    <mat-tab label="Lịch sử đặt lịch">
+        <app-history-booking></app-history-booking>
+    </mat-tab>
+</mat-tab-group>

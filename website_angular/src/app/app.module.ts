@@ -90,6 +90,8 @@ import { ChooseWorkerPopupComponent } from './shop/booking-service/choose-worker
 import { WorkerDetailsComponent } from './shop/booking-service/worker-details/worker-details.component';
 import {DatePipe} from '@angular/common';
 import { ThanksBookingComponent } from './shop/thanks-booking/thanks-booking.component';
+import { HistoryBookingComponent } from './shop/booking-service/history-booking/history-booking.component';
+import { ManageBookingComponent } from './admin/components/manage-booking/manage-booking.component';
 
 @NgModule({
     declarations: [
@@ -135,7 +137,9 @@ import { ThanksBookingComponent } from './shop/thanks-booking/thanks-booking.com
         BookingServiceComponent,
         ChooseWorkerPopupComponent,
         WorkerDetailsComponent,
-        ThanksBookingComponent
+        ThanksBookingComponent,
+        HistoryBookingComponent,
+        ManageBookingComponent
     ],
     imports: [
         BrowserModule,

@@ -1,0 +1,96 @@
+<div class="container">
+    <h4 class="title-manage-order text-center">Quản lý đặt lịch</h4>
+    <div class="row">
+        <div (click)="getAllBookingByStatus(0)">
+            <button *ngIf="statusCurrent === 0" mat-raised-button class="btn-info">
+                Đang chờ xác nhận
+            </button>
+            <button *ngIf="statusCurrent !== 0" mat-raised-button color="primary">
+                Đang chờ xác nhận
+            </button>
+        </div>
+        <div (click)="getAllBookingByStatus(1)">
+            <button *ngIf="statusCurrent === 1" mat-raised-button class="btn-info">
+               Đã xác nhận
+            </button>
+            <button *ngIf="statusCurrent !== 1" mat-raised-button color="primary">
+                Đã xác nhận
+            </button>
+        </div>
+        <div (click)="getAllBookingByStatus(2)">
+            <button *ngIf="statusCurrent === 2" mat-raised-button class="btn-info">
+                Đã hoàn thành
+            </button>
+            <button *ngIf="statusCurrent !== 2" mat-raised-button color="primary">
+                Đã hoàn thành
+            </button>
+        </div>
+    </div>
+    <div class="row">
+        <table *ngIf="bookings" class="table table-striped ">
+            <thead class="thead-dark">
+            <tr>
+
+                <th scope="col">STT</th>
+                <th scope="col">Tên khách hàng</th>
+                <th scope="col">SĐT khách hàng</th>
+                <th scope="col">Ngày hẹn</th>
+                <th scope="col">Ngày đặt</th>
+                <th scope="col">Dịch vụ</th>
+                <th scope="col">Tên thú cưng</th>
+                <th scope="col">Tên thợ</th>
+                <th scope="col">SĐT thợ</th>
+                <th scope="col">Chi phí</th>
+                <th scope="col">Trạng thái</th>
+                <th scope="col" *ngIf="statusCurrent !== 2" >Duyệt</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let u of bookings; let i = index;">
+                <td scope="row">{{i + 1}}</td>
+                <td>
+                    <p class="lead">{{currentUser?.fullname}}</p>
+                </td>
+                <td>
+                    <p class="lead">{{u.phone}}</p>
+                </td>
+                <td>
+                    <p class="lead">{{u.appointmentDate | date: 'dd/MM/yyyy'}}</p>
+                </td>
+                <td>
+                    <p class="lead">{{u.createTime |  date: 'dd/MM/yyyy'}}</p>
+                </td>
+                <td>
+                    <p class="lead min-two-line ">{{u.serviceName}}</p>
+                </td>
+                <td>
+                    <p class="lead">{{u.petName}}</p>
+                </td>
+
+                <td>
+                    <p class="lead">{{u.workerName}}</p>
+                </td>
+
+                <td>
+                    <p class="lead">{{u.workerPhone}}</p>
+                </td>
+
+                <td>
+                    <p class="lead">{{u.price | currency: "VND"}}</p>
+                </td>
+                <td [ngStyle]="{'background-color':
+                     u.status === 2 ?
+                        'rgb(48, 202, 94)' :
+                            ( u.status === 0 ? 'rgb(253, 0, 0)' : 'rgb(253, 195, 4)')}">
+                    <p class="lead">{{status[u.status]}}</p>
+                </td>
+                <td *ngIf="statusCurrent !== 2">
+                    <button class="btn btn-success" (click)="changeStatus(u)">
+                        Duyệt
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

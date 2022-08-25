@@ -28,7 +28,15 @@ public class BookingDTO {
 
     private String fullname;
 
+    private Integer status;
+
     private String phone;
 
     private String appointmentDateStr;
+
+    private String workerName;
+
+    private String workerPhone;
+
+    private String price;
 }

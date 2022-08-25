@@ -23,6 +23,7 @@ import {ServicePageComponent} from './shop/service-page/service-page.component';
 import {SingleServiceComponent} from './shop/single-service/single-service.component';
 import {BookingServiceComponent} from './shop/booking-service/booking-service.component';
 import {ThanksBookingComponent} from './shop/thanks-booking/thanks-booking.component';
+import {ManageBookingComponent} from './admin/components/manage-booking/manage-booking.component';
 
 const routes: Routes = [
   {
@@ -126,6 +127,10 @@ const routes: Routes = [
   {
     path: 'admin/service-worker',
     component: ManageServiceWorkerComponent
+  },
+  {
+    path: 'admin/booking',
+    component: ManageBookingComponent
   }
 ];
 

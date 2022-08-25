@@ -17,10 +17,10 @@ public class Booking {
     private Integer id;
 
     @Column(name = "service_id")
-    private String serviceId;
+    private Integer serviceId;
 
     @Column(name = "service_worker_id")
-    private String serviceWorkerId;
+    private Integer serviceWorkerId;
 
     @Column(name = "appointment_date")
     private Instant appointmentDate;
@@ -29,7 +29,7 @@ public class Booking {
     private Instant createTime;
 
     @Column(name = "client_id")
-    private String clientId;
+    private Integer clientId;
 
     @Column(name = "pet_name")
     private String petName;
@@ -39,4 +39,7 @@ public class Booking {
 
     @Column(name = "phone")
     private String phone;
+
+    @Column(name = "status")
+    private Integer status;
 }
