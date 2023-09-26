@@ -10,7 +10,7 @@ import org.springframework.http.HttpStatus;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ResponseUploadFile<T> {
+    public class ResponseUploadFile<T> {
     private String msg;
     private HttpStatus httpStatus;
     private T data;

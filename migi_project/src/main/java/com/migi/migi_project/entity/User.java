@@ -14,8 +14,15 @@ public class User implements Serializable {
     private String phoneNumber;
     private String address;
     private Timestamp createDate;
+    private String email;
     private Collection<Orders> ordersById;
     private Collection<UserRole> userRolesById;
+
+    private String firstName;
+
+    private String lastName;
+
+    private String image;
 
     @Id
     @Column(name = "id")
@@ -36,6 +43,16 @@ public class User implements Serializable {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    @Basic
+    @Column(name = "email")
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     @Basic
@@ -86,6 +103,36 @@ public class User implements Serializable {
 
     public void setCreateDate(Timestamp createDate) {
         this.createDate = createDate;
+    }
+
+    @Basic
+    @Column(name = "first_name")
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    @Basic
+    @Column(name = "last_name")
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    @Basic
+    @Column(name = "image")
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     @OneToMany(mappedBy = "userByIdUser")

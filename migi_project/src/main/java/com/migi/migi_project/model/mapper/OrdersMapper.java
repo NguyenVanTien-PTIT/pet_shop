@@ -19,10 +19,23 @@ public class OrdersMapper {
         ordersDTO.setNameUser(orders.getNameUser());
         //Convert Date -> String
         SimpleDateFormat simpleDateFormat= new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
         String result = simpleDateFormat.format(orders.getOrderDate());
         ordersDTO.setOrderDate(result);
         ordersDTO.setStatus(orders.getStatus());
         ordersDTO.setIdUser(orders.getUserByIdUser().getId());
+
+        ordersDTO.setOrderIdMobile("MHD00" + orders.getId());
+        if (orders.getStatus() == 0) {
+            ordersDTO.setStatusDisplay("Đang đặt hàng");
+        } else if (orders.getStatus() == 1) {
+            ordersDTO.setStatusDisplay("Đang đợi xác nhận");
+        } else if (orders.getStatus() == 2) {
+            ordersDTO.setStatusDisplay("Đang giao hàng");
+        } else {
+            ordersDTO.setStatusDisplay("Đã giao hàng");
+        }
+        ordersDTO.setOrderDateMobile(formatter.format(orders.getOrderDate()));
         return ordersDTO;
     }
 

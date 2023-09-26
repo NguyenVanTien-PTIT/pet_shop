@@ -1,7 +1,6 @@
 package com.migi.migi_project.controller.user;
 
 import com.migi.migi_project.entity.User;
-import com.migi.migi_project.exception.BadRequestException;
 import com.migi.migi_project.model.dto.UserDTO;
 import com.migi.migi_project.model.mapper.UserMapper;
 import com.migi.migi_project.model.request.LoginRequest;
@@ -16,13 +15,10 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 @RestController
 @CrossOrigin
@@ -37,8 +33,8 @@ public class UserController {
     private AuthenticationManager authenticationManager;
 
     @PostMapping(value = "/login")
-    public ResponseEntity<?> checkLogin(@RequestBody LoginRequest request){
-
+    public ResponseEntity<?> checkLogin(@RequestBody LoginRequest request) {
+        LoginResponse loginResponse = new LoginResponse();
         try {
             Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                     request.getUsername(),
@@ -48,36 +44,28 @@ public class UserController {
             String token = jwtTokenUtil.generateToken((CustomUserDetails) authentication.getPrincipal());
 
             //Add token to response
-            LoginResponse loginResponse = new LoginResponse();
             loginResponse.setMsg("Đăng nhập thành công");
             loginResponse.setUserDTO(UserMapper.toUserDTO(((CustomUserDetails) authentication.getPrincipal()).getUser()));
             loginResponse.setHttpStatus(HttpStatus.OK);
             loginResponse.setToken(token);
 
-            return new ResponseEntity<LoginResponse>(loginResponse, loginResponse.getHttpStatus());
         } catch (Exception ex) {
+            loginResponse.setMsg("Tài khoản hoặc mật khẩu không chính xác!");
+            loginResponse.setHttpStatus(HttpStatus.INTERNAL_SERVER_ERROR);
             System.out.println("Tài khoản hoặc mật khẩu không chính xác!");
-            return ResponseEntity.ok(new LoginResponse());
         }
+        return ResponseEntity.ok(loginResponse);
     }
 
     @PutMapping(value = "/user")
-    public ResponseEntity<?> updateUser(@RequestBody UserDTO userDTO){
-        System.out.println(userDTO.getId());
-        System.out.println(userDTO.getUsername());
-        System.out.println(userDTO.getPassword());
-        System.out.println(userDTO.getFullname());
-        System.out.println(userDTO.getPhoneNumber());
-        System.out.println(userDTO.getAddress());
-        System.out.println(userDTO.getCreateDate());
-
+    public ResponseEntity<?> updateUser(@RequestBody UserDTO userDTO) {
         UserDTO reDTO = userService.updateUser(userDTO);
         String token = jwtTokenUtil.generateToken(
-                                        (CustomUserDetails)
-                                                SecurityContextHolder
-                                                        .getContext()
-                                                        .getAuthentication()
-                                                        .getPrincipal());
+                (CustomUserDetails)
+                        SecurityContextHolder
+                                .getContext()
+                                .getAuthentication()
+                                .getPrincipal());
         //Add token to response
         LoginResponse loginResponse = new LoginResponse();
         loginResponse.setMsg("Cập nhật thành công");
@@ -88,11 +76,16 @@ public class UserController {
     }
 
     @PostMapping(value = "/user")
-    public ResponseEntity<?> addUser(@RequestBody UserDTO userDTO, HttpServletResponse response){
+    public ResponseEntity<?> addUser(@RequestBody UserDTO userDTO, HttpServletResponse response) {
         User user = userService.addUser(userDTO);
-        if(user == null){
+        if (user == null) {
             return ResponseEntity.ok(null);
         }
         return ResponseEntity.ok(UserMapper.toUserDTO(user));
+    }
+
+    @PostMapping("/user/{id}/upload_photo")
+    public ResponseEntity<?> uploadAvatar(@PathVariable("id") int id, @RequestPart MultipartFile file) {
+        return ResponseEntity.ok(userService.uploadAvatar(id, file));
     }
 }

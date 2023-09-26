@@ -8,9 +8,9 @@ import com.migi.migi_project.model.mapper.UserMapper;
 import com.migi.migi_project.model.response.AddProductToOrderResponse;
 import com.migi.migi_project.model.response.ProductPage;
 import com.migi.migi_project.service.user.CategoryService;
-import com.migi.migi_project.service.user.UserService;
 import com.migi.migi_project.service.user.OrderService;
 import com.migi.migi_project.service.user.ProductService;
+import com.migi.migi_project.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -39,8 +39,8 @@ public class ProductController {
 
     //Lấy list danh mục, tổng số sản phẩm, list sản phẩm và page tương ứng
     @GetMapping(value = {"/product-page"})
-    public ResponseEntity<?> showProduct(@RequestParam(value = "page", required = true ) Integer page,
-                                         @RequestParam(value = "limit", required = true) Integer limit){
+    public ResponseEntity<?> showProduct(@RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
+                                         @RequestParam(value = "limit", required = false, defaultValue = "100") Integer limit){
         ProductPage productPage = new ProductPage();
         //Get products in one page
         productPage.setPage(page);

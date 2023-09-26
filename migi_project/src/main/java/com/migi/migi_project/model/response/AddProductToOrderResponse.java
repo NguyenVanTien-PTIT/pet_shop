@@ -12,5 +12,4 @@ import org.springframework.http.HttpStatus;
 public class AddProductToOrderResponse {
     private OrdersDTO ordersDTO;
     private String msg;
-
 }

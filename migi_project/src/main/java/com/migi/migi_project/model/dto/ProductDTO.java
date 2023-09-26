@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 @Getter
 @Setter
@@ -20,4 +21,10 @@ public class ProductDTO {
     private Double price;
     private String image;
     private Timestamp createDate;
+
+    // mobile side
+    private String shortName;
+    private String mobileName;
+    private String mobileDescription;
+    private List<DescriptionDTO> details;
 }

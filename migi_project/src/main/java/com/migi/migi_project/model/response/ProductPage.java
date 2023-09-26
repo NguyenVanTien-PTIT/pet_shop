@@ -1,6 +1,5 @@
 package com.migi.migi_project.model.response;
 
-import com.migi.migi_project.entity.Category;
 import com.migi.migi_project.model.dto.CategoryDTO;
 import com.migi.migi_project.model.dto.ProductDTO;
 import lombok.Getter;

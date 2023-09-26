@@ -1,7 +1,12 @@
 package com.migi.migi_project.model.mapper;
 
 import com.migi.migi_project.entity.Product;
+import com.migi.migi_project.model.dto.DescriptionDTO;
 import com.migi.migi_project.model.dto.ProductDTO;
+
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 
 public class ProductMapper {
     public static ProductDTO toProductDTO(Product product){
@@ -13,6 +18,18 @@ public class ProductMapper {
         productDTO.setImage(product.getImage());
         productDTO.setCreateDate(product.getCreateDate());
         productDTO.setCategoryId(product.getCategoryByIdCategory().getId());
+
+        // mobile side
+        productDTO.setShortName(product.getName());
+        productDTO.setMobileName(product.getName());
+        productDTO.setMobileDescription(product.getDescription());
+        productDTO.setDetails(Collections.singletonList(
+                DescriptionDTO.builder()
+                        .name("Product information")
+                        .value(product.getDescription().replaceAll("<[^>]*>", ""))
+                        .build()
+        ));
+
         return productDTO;
     }
 

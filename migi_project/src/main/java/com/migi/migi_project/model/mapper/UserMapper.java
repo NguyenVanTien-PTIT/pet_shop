@@ -25,6 +25,11 @@ public class UserMapper {
         userDTO.setPhoneNumber(user.getPhoneNumber());
         userDTO.setAddress(user.getAddress());
         userDTO.setCreateDate(user.getCreateDate());
+        userDTO.setEmail(user.getEmail());
+        userDTO.setFirstName(user.getFirstName());
+        userDTO.setLastName(user.getLastName());
+        userDTO.setImage(user.getImage());
+
         Collection<String> roles = new ArrayList<>();
         for(UserRole x : user.getUserRolesById()){
             roles.add(x.getRoleByIdRole().getName());
@@ -42,6 +47,9 @@ public class UserMapper {
         user.setPhoneNumber(userDTO.getPhoneNumber());
         user.setAddress(userDTO.getAddress());
         user.setCreateDate(userDTO.getCreateDate());
+        user.setEmail(userDTO.getEmail());
+        user.setFirstName(userDTO.getFirstName());
+        user.setLastName(userDTO.getLastName());
         return user;
     }
 }

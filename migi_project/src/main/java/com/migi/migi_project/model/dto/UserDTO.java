@@ -19,6 +19,12 @@ public class UserDTO {
     private String fullname;
     private String phoneNumber;
     private String address;
+    private String email;
     private Timestamp createDate;
     private Collection<String> roles;
+
+    // update information
+    private String firstName;
+    private String lastName;
+    private String image;
 }

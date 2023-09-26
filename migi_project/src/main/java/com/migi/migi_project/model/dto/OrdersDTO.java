@@ -21,4 +21,8 @@ public class OrdersDTO {
     private String orderDate;
     private int status;
     private Integer idUser;
+
+    private String orderIdMobile;
+    private String statusDisplay;
+    private String orderDateMobile;
 }

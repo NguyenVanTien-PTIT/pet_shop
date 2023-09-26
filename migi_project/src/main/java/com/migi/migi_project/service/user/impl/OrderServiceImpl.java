@@ -9,6 +9,7 @@ import com.migi.migi_project.model.dto.ProductDTO;
 import com.migi.migi_project.model.mapper.OrderProductMapper;
 import com.migi.migi_project.model.mapper.OrdersMapper;
 import com.migi.migi_project.model.mapper.ProductMapper;
+import com.migi.migi_project.model.response.OrderItem;
 import com.migi.migi_project.repository.user.OrderProductRepository;
 import com.migi.migi_project.repository.user.OrderRepository;
 import com.migi.migi_project.repository.user.ProductRepository;
@@ -20,6 +21,7 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Component
 @AllArgsConstructor
@@ -32,12 +34,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public OrdersDTO findOrderByIdUser(Integer idUser) {
         Optional<Orders> order = orderRepository.findByIdUser(idUser);
-        if (order.isPresent()){
-            System.out.println(order.get().getOrderDate());
-            return OrdersMapper.toOrdersDTO(order.get());
-        }else{
-            return null;
-        }
+        return order.map(OrdersMapper::toOrdersDTO).orElse(null);
     }
 
     @Override
@@ -77,6 +74,34 @@ public class OrderServiceImpl implements OrderService {
     public Boolean deleteOrderById(Integer id) {
         orderRepository.deleteById(id);
         return true;
+    }
+
+    @Override
+    public Boolean deleteOrderAndRelate(Integer orderId) {
+        // delete order item
+        List<OrderProduct> orderItems = orderProductRepository.findByIdOrder(orderId);
+        orderProductRepository.deleteInBatch(orderItems);
+
+        orderRepository.deleteById(orderId);
+        return true;
+    }
+
+    @Override
+    public List<OrderItem> getOrderProductByIdOrder(Integer id) {
+        return orderProductRepository.findByIdOrder(id)
+                .stream()
+                .map(OrderProductMapper::toOrderProductDTO)
+                .map(item -> OrderItem.builder()
+                        .orderProductId(item.getId())
+                        .productId(item.getProductDTO().getId())
+                        .shortName(item.getProductDTO().getShortName())
+                        .mobileName(item.getProductDTO().getMobileName())
+                        .image(item.getProductDTO().getImage())
+                        .quantity(item.getQuantity())
+                        .subtotal(item.getPrice())
+                        .product(item.getProductDTO())
+                        .build())
+                .collect(Collectors.toList());
     }
 
     @Override

@@ -11,8 +11,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Component
 public class ProductServiceImpl implements ProductService {
@@ -21,13 +23,12 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<ProductDTO> findAll(Pageable pageable) {
-        List<ProductDTO> productDTOS = new ArrayList<>();
-        List<Product> products = productRepository.findAll(pageable).getContent();
-        for(Product x : products){
-            productDTOS.add(ProductMapper.toProductDTO(x));
-        }
-        productDTOS.sort((o1, o2) -> o1.getId()- o2.getId());
-        return productDTOS;
+        return productRepository.findAll(pageable)
+                .getContent()
+                .stream()
+                .map(ProductMapper::toProductDTO)
+                .sorted(Comparator.comparingInt(ProductDTO::getId))
+                .collect(Collectors.toList());
     }
 
     @Override

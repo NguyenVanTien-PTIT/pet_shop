@@ -82,9 +82,11 @@ public class ManagerProductServiceImpl implements ManagerProductService {
     @Override
     public ResponseNormal addProduct(ProductDTO productDTO) {
         Category category = categoryRepository.findById(productDTO.getCategoryId()).get();
+
         Product product = ProductMapper.toProduct(productDTO);
         product.setCategoryByIdCategory(category);
         product.setCreateDate(Timestamp.valueOf(LocalDateTime.now()));
+
         productRepository.save(product);
         ResponseNormal response = new ResponseNormal("Thêm mới thành công", HttpStatus.OK);
         return response;
