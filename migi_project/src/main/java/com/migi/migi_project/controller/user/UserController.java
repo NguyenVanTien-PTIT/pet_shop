@@ -75,6 +75,17 @@ public class UserController {
         return ResponseEntity.ok(loginResponse);
     }
 
+    @PutMapping(value = "/user/mobile")
+    public ResponseEntity<?> updateUserMobile(@RequestBody UserDTO userDTO) {
+        UserDTO reDTO = userService.updateUser(userDTO);
+        //Add token to response
+        LoginResponse loginResponse = new LoginResponse();
+        loginResponse.setMsg("Cập nhật thành công");
+        loginResponse.setUserDTO(reDTO);
+        loginResponse.setHttpStatus(HttpStatus.OK);
+        return ResponseEntity.ok(loginResponse);
+    }
+
     @PostMapping(value = "/user")
     public ResponseEntity<?> addUser(@RequestBody UserDTO userDTO, HttpServletResponse response) {
         User user = userService.addUser(userDTO);
