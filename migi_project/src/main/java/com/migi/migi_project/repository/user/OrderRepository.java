@@ -13,7 +13,7 @@ import java.util.Optional;
 @Repository
 public interface OrderRepository extends JpaRepository<Orders, Integer> {
     @Query(value = "SELECT o.* FROM orders as o WHERE id_user = ?1 AND status = 0", nativeQuery = true)
-    Optional<Orders> findByIdUser(Integer idUser);
+    List<Orders> findByIdUser(Integer idUser);
 
     @Query(value = "SELECT o.* FROM orders as o WHERE id_user = ?1 ", nativeQuery = true)
     List<Orders> findAllByIdUser(Integer idUser);

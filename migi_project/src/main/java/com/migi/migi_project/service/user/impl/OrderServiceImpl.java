@@ -33,8 +33,22 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public OrdersDTO findOrderByIdUser(Integer idUser) {
-        Optional<Orders> order = orderRepository.findByIdUser(idUser);
-        return order.map(OrdersMapper::toOrdersDTO).orElse(null);
+        List<Orders> orderList = orderRepository.findByIdUser(idUser);
+
+        final int[] index = {1};
+        orderList.forEach(order -> {
+            if (index[0] > 1) {
+                order.getOrderProductsById()
+                        .stream()
+                        .map(OrderProduct::getId)
+                        .forEach(orderProductRepository::deleteById);
+
+                orderRepository.deleteById(order.getId());
+            }
+            index[0] = index[0] + 1;
+        });
+
+        return orderList.stream().findFirst().map(OrdersMapper::toOrdersDTO).orElse(null);
     }
 
     @Override
