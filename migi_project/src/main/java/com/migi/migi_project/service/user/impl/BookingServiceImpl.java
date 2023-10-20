@@ -8,13 +8,16 @@ import com.migi.migi_project.repository.user.BookingRepository;
 import com.migi.migi_project.repository.user.ServiceRepository;
 import com.migi.migi_project.repository.user.ServiceWorkerRepository;
 import com.migi.migi_project.service.user.BookingService;
+import com.migi.migi_project.utils.DataUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -31,6 +34,14 @@ public class BookingServiceImpl implements BookingService {
     @Autowired
     private ModelMapper mapper;
 
+    private static final Map<Integer, String> statusBooking = new HashMap<>();
+
+    static {
+        statusBooking.put(0, "Đang chờ xác nhận");
+        statusBooking.put(1, "Đã xác nhận");
+        statusBooking.put(2, "Đã hoàn thành");
+    }
+
     @Override
     public ResponseNormal bookService(BookingDTO bookingDTO) {
         try {
@@ -39,7 +50,7 @@ public class BookingServiceImpl implements BookingService {
             booking.setStatus(0);
 
             bookingRepository.save(booking);
-            return new ResponseNormal("", HttpStatus.OK);
+            return new ResponseNormal("Đặt lịch hẹn thành công", HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseNormal("", HttpStatus.OK);
         }
@@ -80,6 +91,8 @@ public class BookingServiceImpl implements BookingService {
                     }
                     bookingDTO.setWorkerName(serviceWorker.getFullname());
                     bookingDTO.setWorkerPhone(serviceWorker.getPhoneNumber());
+                    bookingDTO.setStatusDisplay(statusBooking.get(bookingDTO.getStatus()));
+                    bookingDTO.setAppointmentDateStr(DataUtils.toString(bookingDTO.getAppointmentDate()));
 
                     return bookingDTO;
                 })

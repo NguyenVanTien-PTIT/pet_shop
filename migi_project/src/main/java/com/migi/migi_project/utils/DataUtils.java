@@ -2,8 +2,13 @@ package com.migi.migi_project.utils;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 
 public class DataUtils {
+    private static final String PATTERN_FORMAT = "HH:mm dd-MM-yyyy";
+
     public static Long safeToLong(Object obj1, Long defaultValue) {
         Long result = defaultValue;
         if (obj1 != null) {
@@ -55,5 +60,11 @@ public class DataUtils {
         }
 
         return result;
+    }
+
+    public static String toString(Instant instant) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(PATTERN_FORMAT)
+                .withZone(ZoneId.systemDefault());
+        return formatter.format(instant);
     }
 }

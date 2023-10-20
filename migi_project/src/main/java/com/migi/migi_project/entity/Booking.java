@@ -16,6 +16,9 @@ public class Booking {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column(name = "booking_name")
+    private String fullname;
+
     @Column(name = "service_id")
     private Integer serviceId;
 

@@ -41,15 +41,15 @@ export class BookingServiceComponent implements OnInit {
 
   public bookingForm = this.fb.group({
     clientId: [''],
-    serviceId: [''],
-    serviceCode: [''],
-    serviceName: '',
-    appointmentDateStr: [undefined, Validators.required],
-    fullname: [undefined, [Validators.required]],
-    phone: [undefined, [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
-    petName: [undefined, [Validators.required]],
-    petType: [undefined, [Validators.required]],
-    serviceWorkerId: [undefined, Validators.required]
+  serviceId: [''],
+  serviceCode: [''],
+  serviceName: '',
+  appointmentDateStr: [undefined, Validators.required],
+  fullname: [undefined, [Validators.required]],
+  phone: [undefined, [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
+  petName: [undefined, [Validators.required]],
+  petType: [undefined, [Validators.required]],
+  serviceWorkerId: [undefined, Validators.required]
   });
 
   constructor(

@@ -29,6 +29,7 @@ public class BookingDTO {
     private String fullname;
 
     private Integer status;
+    private String statusDisplay;
 
     private String phone;
 

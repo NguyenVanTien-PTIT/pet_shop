@@ -1,16 +1,14 @@
 package com.migi.migi_project.model.response;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.http.HttpStatus;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-    public class ResponseUploadFile<T> {
+@Builder
+public class ResponseUploadFile<T> {
     private String msg;
     private HttpStatus httpStatus;
     private T data;

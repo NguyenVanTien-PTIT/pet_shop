@@ -4,6 +4,7 @@ import com.migi.migi_project.entity.User;
 import com.migi.migi_project.model.dto.UserDTO;
 import com.migi.migi_project.model.mapper.UserMapper;
 import com.migi.migi_project.model.request.LoginRequest;
+import com.migi.migi_project.model.request.UpdatePasswordRequest;
 import com.migi.migi_project.model.response.LoginResponse;
 import com.migi.migi_project.security.CustomUserDetails;
 import com.migi.migi_project.security.JwtTokenUtil;
@@ -57,6 +58,11 @@ public class UserController {
         return ResponseEntity.ok(loginResponse);
     }
 
+    @GetMapping(value = "/user/get-by-email/{email}")
+    public ResponseEntity<?> getCustomerByEmail(@PathVariable String email) {
+        return ResponseEntity.ok(userService.findByEmail(email));
+    }
+
     @PutMapping(value = "/user")
     public ResponseEntity<?> updateUser(@RequestBody UserDTO userDTO) {
         UserDTO reDTO = userService.updateUser(userDTO);
@@ -75,6 +81,13 @@ public class UserController {
         return ResponseEntity.ok(loginResponse);
     }
 
+    @PostMapping(value = "/user/update-password/{id}")
+    public ResponseEntity<?> updatePassword(@RequestBody UpdatePasswordRequest request,
+                                            @PathVariable("id") Integer id) {
+
+        return ResponseEntity.ok(userService.updatePassword(id, request));
+    }
+
     @PutMapping(value = "/user/mobile")
     public ResponseEntity<?> updateUserMobile(@RequestBody UserDTO userDTO) {
         UserDTO reDTO = userService.updateUser(userDTO);
@@ -90,8 +103,9 @@ public class UserController {
     public ResponseEntity<?> addUser(@RequestBody UserDTO userDTO, HttpServletResponse response) {
         User user = userService.addUser(userDTO);
         if (user == null) {
-            return ResponseEntity.ok(null);
+            return ResponseEntity.badRequest().body("Username or email existed");
         }
+
         return ResponseEntity.ok(UserMapper.toUserDTO(user));
     }
 
